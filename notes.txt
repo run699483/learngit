@@ -1,0 +1,76 @@
+1、初始化git仓库
+git init
+
+My@DESKTOP-BNNIISU MINGW64 /e/learngit
+$ git init
+Initialized empty Git repository in E:/learngit/.git/
+
+2、添加文件到Git仓库，分两步
+1）git add <file> 把文件添加到仓库，可反复多次使用，添加多个文件。
+	My@DESKTOP-BNNIISU MINGW64 /e/learngit (master)
+	$ git add readme.txt
+
+2）git commit -m <message>把文件提交到仓库
+-m 后面是本次提交的说明，从历史记录里方便地找到改动记录。
+	My@DESKTOP-BNNIISU MINGW64 /e/learngit (master)
+	$ git  commit -m "wrote a reademe file"
+	[master (root-commit) ae46d7d] wrote a reademe file
+	1 file changed, 3 insertions(+)
+	create mode 100644 readme.txt
+
+3、掌握工作区状态
+git status
+
+
+4、查看修改内容（different）
+git diff
+
+My@DESKTOP-BNNIISU MINGW64 /e/learngit (master)
+$ git diff
+warning: LF will be replaced by CRLF in readme.txt.
+The file will have its original line endings in your working directory
+diff --git a/readme.txt b/readme.txt
+index 87218be..7eaad19 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -1,3 +1,3 @@
+-git is a version control system.
+-git is free software
++git is a distributed version control system.
++git is free software.
+
+5、可以查看提交历史，以便确定要回退到哪个版本。
+git log
+git log --pretty=oneline
+
+$ git log --pretty=oneline
+d4ab9197909b5932a2fa78bea6139923c2755e3f (HEAD -> master) append GPL
+6906b0595b03647b766eb81cb3fe91d4744057fb add distributed
+ae46d7d8ccac2e55534c458af4f0c2fae9eee412 wrote a reademe file
+
+
+6、回退版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，
+当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100
+git reset --hard HEAD^
+
+$ git reset --hard HEAD^
+HEAD is now at e475afc add distributed
+
+7、回到某版本
+git reset --hard <commit_id前几位>
+
+My@DESKTOP-BNNIISU MINGW64 /e/learngit (master)
+$ git reset --hard d4ab919
+HEAD is now at d4ab919 append GPL
+
+8、查看命令历史，以便确定要回到未来的哪个版本
+git reflog
+
+My@DESKTOP-BNNIISU MINGW64 /e/learngit (master)
+$ git reflog
+d4ab919 (HEAD -> master) HEAD@{0}: reset: moving to d4ab919
+6906b05 HEAD@{1}: reset: moving to HEAD^
+d4ab919 (HEAD -> master) HEAD@{2}: reset: moving to HEAD
+d4ab919 (HEAD -> master) HEAD@{3}: commit: append GPL
+6906b05 HEAD@{4}: commit: add distributed
+ae46d7d HEAD@{5}: commit (initial): wrote a reademe file
